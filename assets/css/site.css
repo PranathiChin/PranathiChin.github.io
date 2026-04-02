@@ -185,7 +185,8 @@ a:hover {
   right: max(1rem, env(safe-area-inset-right, 0px));
   bottom: max(1rem, env(safe-area-inset-bottom, 0px));
   left: auto;
-  z-index: 60;
+  z-index: 200;
+  pointer-events: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -205,6 +206,8 @@ a:hover {
   color: var(--text-muted);
   transition: color 0.2s ease;
   white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .rail-quick a:hover {
