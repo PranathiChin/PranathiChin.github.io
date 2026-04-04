@@ -659,6 +659,44 @@ a:hover {
   }
 }
 
+.reads-previous {
+  margin: 0 0 1.75rem;
+}
+
+.reads-prev-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.reads-prev-list li {
+  margin-bottom: 0.45rem;
+}
+
+.reads-prev-list li:last-child {
+  margin-bottom: 0;
+}
+
+.reads-prev-list cite {
+  font-style: normal;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.reads-prev-sep {
+  margin: 0 0.2rem;
+  color: var(--text-muted);
+}
+
+.reads-prev-author {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
 .reads-substack-note {
   margin: 0 0 1.75rem;
   padding: 0.65rem 0 0;
