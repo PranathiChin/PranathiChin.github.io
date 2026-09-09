@@ -1,0 +1,219 @@
+/* ── About page ────────────────────────────────────────────── */
+/* Override site.css's fixed-viewport defaults so the whole page scrolls. */
+html, body {
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Ensure the page is tall enough to reach the bottom polaroids. */
+body {
+  min-height: 1920px;
+}
+
+/* Hide scrollbars but keep scrolling. */
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+body { scrollbar-width: none; }
+body::-webkit-scrollbar { display: none; }
+
+/* ── Cards layer ─────────────────────────────────────────── */
+.cards-layer {
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  /* Stretches to whatever height the document grows to, so polaroids placed
+     near the bottom (top: 1500px+) are still inside the layer. */
+  min-height: 100%;
+  z-index: 5;
+  pointer-events: none; /* cards get pointer-events individually */
+}
+
+/* ── Polaroid photo card (draggable) ───────────────────────── */
+.photo-card {
+  position: absolute;
+  width: clamp(230px, 22vw, 320px);
+  background: #fafaf6; /* slight cream tint, not pure white */
+  /* Polaroid: equal top/sides, thicker bottom margin, no caption text. */
+  padding: 14px 14px 38px;
+  border-radius: 2px;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.16),
+    0 18px 44px rgba(0, 0, 0, 0.32);
+  cursor: grab;
+  user-select: none;
+  pointer-events: auto;
+  z-index: 20;
+  will-change: transform;
+  transition: box-shadow 0.2s ease;
+}
+
+.photo-card:active { cursor: grabbing; }
+
+/* Filenames hidden — leave the markup alone in case we want labels back. */
+.card-bar { display: none; }
+
+.photo-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* classic polaroid square */
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  pointer-events: none;
+}
+
+/* ── Right-column document ───────────────────────────────── */
+.about-doc {
+  /* Pinned to the right edge — wider than before so the text takes up
+     more space, extending further to the left. */
+  position: absolute;
+  top: 0;
+  right: clamp(32px, 4vw, 80px);
+  width: clamp(420px, 40vw, 600px);
+  z-index: 10;
+
+  background: transparent;
+  color: var(--text);
+  padding: 72px 0 96px;
+}
+
+/* ── Doc content ─────────────────────────────────────────── */
+.doc-back {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.55;
+  margin-bottom: 64px;
+  transition: opacity 0.2s;
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+}
+
+.doc-back:hover { opacity: 1; }
+
+.doc-heading {
+  font-size: clamp(44px, 5vw, 68px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 56px;
+  line-height: 1;
+  overflow-wrap: break-word;
+}
+
+.doc-heading .accent { color: var(--accent); }
+
+.doc-section {
+  margin-bottom: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.doc-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+  margin-bottom: 8px;
+}
+
+.doc-section p {
+  font-size: clamp(22px, 1.8vw, 30px);
+  line-height: 1.5;
+  color: var(--text);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+/* The first paragraph in each section reads as the section's "lede" */
+.doc-section > p:first-of-type {
+  font-size: clamp(28px, 2.4vw, 40px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+/* ── Contact pill ────────────────────────────────────────── */
+.contact-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 16px 16px 16px 22px;
+  margin-top: 8px;
+  gap: 16px;
+  backdrop-filter: blur(8px);
+}
+
+.contact-email {
+  font-size: clamp(15px, 1.1vw, 17px);
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.01em;
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+}
+
+.copy-btn {
+  flex-shrink: 0;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.copy-btn:hover { background: #ffffff; }
+.copy-btn:active { transform: scale(0.96); }
+.copy-btn.copied { background: #22c55e; color: #fff; }
+
+/* ── Drag hint toast ─────────────────────────────────────── */
+.drag-hint {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 8px 18px;
+  border-radius: 20px;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: hintLife 3.5s ease forwards;
+}
+
+@keyframes hintLife {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(6px); }
+  15%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  75%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+}
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  body { min-height: 100vh; }
+  .about-doc {
+    position: static;
+    width: auto;
+    padding: 40px 28px 80px;
+  }
+  .cards-layer { display: none; }
+  .contact-email { font-size: 12px; }
+}

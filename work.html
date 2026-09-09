@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work — Pran</title>
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <link rel="stylesheet" href="assets/css/work.css" />
+</head>
+<body>
+
+  <!-- ─── Folder scroll zone starts at top of page ────────── -->
+  <div class="folders-scroll-zone" id="folders-zone">
+    <div class="folders-pin" id="folders-pin">
+
+      <!-- Header lives inside the pin so animation starts on first scroll -->
+      <div class="pin-top">
+        <div class="pin-top-left">
+          <a class="work-back" href="index.html" id="work-back">← pran.studio</a>
+          <h1 class="work-heading">pranathi<span class="accent">/work.html</span></h1>
+        </div>
+        <div class="pin-header">
+          <span class="pin-label">01 · Professional Work</span>
+          <div class="pin-progress-track">
+            <div class="pin-progress-fill" id="progress-fill"></div>
+          </div>
+          <span class="pin-counter" id="pin-counter"></span>
+        </div>
+      </div>
+
+      <div class="folders-stage" id="folders-stage">
+
+        <!-- Base (empty) folder — always visible as the "desk" -->
+        <div class="folder folder-base" aria-hidden="true">
+          <div class="folder-tab"></div>
+          <div class="folder-body"></div>
+        </div>
+
+        <!-- ── Edit your work experience here ─────────────── -->
+
+        <div class="folder" data-index="0">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-paper">
+              <span class="entry-num">01 ·· 2024</span>
+              <div class="entry-company">Company Name</div>
+              <div class="entry-divider"></div>
+              <div class="entry-meta">
+                <div class="entry-role-wrap">
+                  <span class="entry-role">Product Design Intern · Summer 2024</span>
+                  <p class="entry-desc">Replace with a punchy description of what you built and the impact it had. What shipped?</p>
+                </div>
+                <div class="entry-tags">
+                  <span class="etag">Product</span>
+                  <span class="etag">Figma</span>
+                  <span class="etag">Research</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="folder" data-index="1">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-paper">
+              <span class="entry-num">02 ·· 2023</span>
+              <div class="entry-company">Studio / Agency</div>
+              <div class="entry-divider"></div>
+              <div class="entry-meta">
+                <div class="entry-role-wrap">
+                  <span class="entry-role">Design Engineer · Fall 2023</span>
+                  <p class="entry-desc">Replace with your actual experience. What made the work interesting and what did you deliver?</p>
+                </div>
+                <div class="entry-tags">
+                  <span class="etag">Systems</span>
+                  <span class="etag">React</span>
+                  <span class="etag">Motion</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="folder" data-index="2">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-paper">
+              <span class="entry-num">03 ·· 2023</span>
+              <div class="entry-company">Startup Name</div>
+              <div class="entry-divider"></div>
+              <div class="entry-meta">
+                <div class="entry-role-wrap">
+                  <span class="entry-role">UX Design Intern · Summer 2023</span>
+                  <p class="entry-desc">Lead with impact — what changed because you were there? Keep it sharp.</p>
+                </div>
+                <div class="entry-tags">
+                  <span class="etag">UX</span>
+                  <span class="etag">Prototyping</span>
+                  <span class="etag">A/B Tests</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="folder" data-index="3">
+          <div class="folder-tab"></div>
+          <div class="folder-body">
+            <div class="folder-paper">
+              <span class="entry-num">04 ·· 2022</span>
+              <div class="entry-company">Organization</div>
+              <div class="entry-divider"></div>
+              <div class="entry-meta">
+                <div class="entry-role-wrap">
+                  <span class="entry-role">Product · 2022</span>
+                  <p class="entry-desc">Your earliest listed experience. What did you learn and ship? Even early work shows trajectory.</p>
+                </div>
+                <div class="entry-tags">
+                  <span class="etag">Strategy</span>
+                  <span class="etag">Research</span>
+                  <span class="etag">Wireframes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /folders-stage -->
+
+      <div class="scroll-cue" id="scroll-cue">
+        <span>scroll to reveal</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+    </div><!-- /folders-pin -->
+  </div><!-- /folders-scroll-zone -->
+
+  <!-- More sections coming soon -->
+  <div class="work-more">
+    <span>case studies + projects coming soon ↓</span>
+  </div>
+
+  <script src="assets/js/transition.js" defer></script>
+  <script src="assets/js/work.js"></script>
+  <script>
+    // Arrival reveal
+    (function () {
+      const raw = sessionStorage.getItem("tx");
+      if (!raw) return;
+      const { x, y } = JSON.parse(raw);
+      sessionStorage.removeItem("tx");
+      const ov = document.createElement("div");
+      Object.assign(ov.style, {
+        position:"fixed", inset:"0", zIndex:"9999", pointerEvents:"none",
+        background:"#F0ECD8",
+        clipPath:`circle(150vmax at ${x}px ${y}px)`,
+      });
+      document.body.appendChild(ov);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        ov.style.transition = "clip-path 0.62s cubic-bezier(0.64,0,0.78,0)";
+        ov.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+        ov.addEventListener("transitionend", () => ov.remove(), { once: true });
+      }));
+    })();
+  </script>
+</body>
+</html>

@@ -3,120 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Pranathi Chinthalapani · portfolio and home." />
-  <title>Pranathi Chinthalapani</title>
+  <title>Pran — Designer & Engineer</title>
   <link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
 
-  <div class="shell">
-    <aside class="rail" aria-label="Site navigation">
-      <a class="rail-brand" href="index.html">
-        <img class="rail-avatar" src="IMG_3430.jpg" width="28" height="28" alt="" />
-        <span>Pranathi Chinthalapani</span>
-      </a>
+  <canvas id="c" aria-hidden="true"></canvas>
 
-      <details class="mobile-jump">
-        <summary>Pages</summary>
-        <nav class="rail-nav rail-nav--drawer" aria-label="Site pages">
-          <a href="about.html">About</a>
-          <a href="experience.html">Experience</a>
-          <a href="projects.html">Projects</a>
-          <a href="reads.html">Reads &amp; writing</a>
-          <a href="contact.html">Contact</a>
-        </nav>
-      </details>
-
-      <div class="rail-label">Pages</div>
-      <nav class="rail-nav rail-nav--sidebar" aria-label="Site pages">
-        <a href="about.html">About</a>
-        <a href="experience.html">Experience</a>
-        <a href="projects.html">Projects</a>
-        <a href="reads.html">Reads &amp; writing</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </aside>
-
-    <div class="rail-quick" aria-label="Social links">
-      <a href="https://www.linkedin.com/in/pranathi-chinthalapani/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="https://github.com/PranathiChin" target="_blank" rel="noopener noreferrer">GitHub</a>
-    </div>
-
-    <main id="main" class="page page--home" aria-label="Home">
-      <div class="polaroid-stage">
-        <a class="home-reads-cta" href="reads.html">Reads &amp; writing</a>
-        <div class="polaroid-scatter" id="polaroid-scatter" aria-label="Photo gallery"></div>
-      </div>
-    </main>
+  <!-- Top-left -->
+  <div class="bp-tl">
+    <span class="bp-wordmark">pran.studio</span>
+    <span class="bp-sub">Portfolio · 2025</span>
   </div>
 
-  <script>
-    (function () {
-      var REPO_PHOTOS = [
-        "photos/1.jpg",
-        "photos/2.JPG",
-        "photos/4.JPG",
-        "photos/5.JPG",
-        "photos/6.JPG",
-        "photos/7.JPG"
-      ];
+  <!-- Top-right -->
+  <div class="bp-tr">
+    <span class="bp-sub">DWG. NO. PC-2025-01</span>
+    <span class="bp-sub">Sheet 01 of 01</span>
+  </div>
 
-      var LAYOUT = [
-        { left: "4%", top: "10%", rotate: -7, z: 3 },
-        { left: "26%", top: "4%", rotate: 5.5, z: 5 },
-        { left: "48%", top: "14%", rotate: -4.5, z: 4 },
-        { left: "10%", top: "44%", rotate: 6, z: 6 },
-        { left: "34%", top: "48%", rotate: -5.5, z: 7 },
-        { left: "52%", top: "52%", rotate: 3.5, z: 2 }
-      ];
+  <!-- Scattered blueprint annotations -->
+  <div class="annot" style="top:28%;left:44px">
+    <span>Design + Engineering</span>
+  </div>
+  <div class="annot annot-right" style="top:22%;right:44px">
+    <span>Rev. A</span>
+  </div>
+  <div class="annot annot-right" style="top:48%;right:44px">
+    <span>Section A–A</span>
+  </div>
+  <div class="annot" style="top:52%;left:44px">
+    <span>Not to scale</span>
+  </div>
 
-      var CAPTION_WORDS = [
-        "New York (NYU)",
-        "Orlando, Fl",
-        "new hat",
-        "Seattle, WA",
-        "Hometown",
-        "Go Gators"
-      ];
+  <!-- Live coords -->
+  <div class="coords" id="coords">–</div>
 
-      var root = document.getElementById("polaroid-scatter");
-      var zStack = 100;
+  <!-- Hero + nav row -->
+  <div class="page-bottom">
+    <header class="hero">
+      <h1 class="hero-name">PRAN<span class="name-dot">.</span></h1>
+      <div class="hero-rule"></div>
+      <div class="hero-tags">
+        <span>Designer</span><span class="sep">+</span>
+        <span>Engineer</span><span class="sep">+</span>
+        <span>Maker</span>
+      </div>
+      <div class="hero-status">
+        <span class="status-dot"></span>
+        <span class="status-text">Available for full-time · 2025</span>
+      </div>
+    </header>
 
-      REPO_PHOTOS.forEach(function (path, i) {
-        var L = LAYOUT[i] || { left: "10%", top: "10%", rotate: 0, z: 1 };
-        var cell = document.createElement("div");
-        cell.className = "scatter-cell";
-        cell.style.left = L.left;
-        cell.style.top = L.top;
-        cell.style.zIndex = String(L.z);
+    <nav class="mag-nav" aria-label="Primary">
+      <a class="mag-item" href="work.html">
+        Work
+        <span class="note">case studies + projects</span>
+      </a>
+      <a class="mag-item" href="art.html">
+        Art
+        <span class="note">illustration + exploration</span>
+      </a>
+      <a class="mag-item" href="about.html">
+        About
+        <span class="note">who i am</span>
+      </a>
+    </nav>
+  </div>
 
-        cell.addEventListener("mouseenter", function () {
-          zStack += 1;
-          cell.style.zIndex = String(zStack);
-        });
+  <!-- Bottom bar -->
+  <div class="bp-bar">
+    <span>N 40° 42' 46" · W 74° 0' 22"</span>
+    <span>Scale 1:1</span>
+    <span>Drawn by: Pran C.</span>
+  </div>
 
-        var card = document.createElement("div");
-        card.className = "polaroid";
-        card.style.setProperty("--tilt", L.rotate + "deg");
-
-        var img = document.createElement("img");
-        img.src = path;
-        img.alt = "";
-        img.loading = i < 2 ? "eager" : "lazy";
-
-        var cap = document.createElement("div");
-        cap.className = "polaroid-caption";
-        cap.textContent = CAPTION_WORDS[i] || String(i + 1);
-        cap.style.transform = "rotate(" + (Math.random() * 5 - 2.5).toFixed(2) + "deg)";
-
-        card.appendChild(img);
-        card.appendChild(cap);
-
-        cell.appendChild(card);
-        root.appendChild(cell);
-      });
-    })();
-  </script>
+  <script src="assets/js/transition.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,177 @@
+/* ── Art page ────────────────────────────────────────────────── */
+.art-body {
+  background: var(--bg);
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--text);
+}
+
+
+.corner {
+  position: fixed; top: 30px; left: 44px; z-index: 100;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.corner a { color: var(--text); text-decoration: none; opacity: 0.5; transition: opacity 0.2s; }
+.corner a:hover { opacity: 1; }
+
+/* ── Layout ──────────────────────────────────────────────────── */
+.art-main {
+  position: relative; z-index: 1;
+  height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0;
+  padding: 0 0 32px;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.art-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  width: 100%; max-width: 900px;
+  padding: 0 48px;
+  margin-bottom: 36px;
+}
+
+.section-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+}
+
+.card-counter {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  color: var(--muted); font-variant-numeric: tabular-nums;
+}
+
+/* ── Carousel ────────────────────────────────────────────────── */
+.carousel-scene {
+  position: relative;
+  width: 100%;
+  height: clamp(380px, 62vh, 600px);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Cards ───────────────────────────────────────────────────── */
+.card {
+  position: absolute;
+  width: clamp(230px, 28vw, 360px);
+  height: clamp(310px, 54vh, 520px);
+  background: var(--accent);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  /* iOS-style ease-out for a softer landing; only animate cheap props. */
+  transition:
+    transform 0.64s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.64s cubic-bezier(0.32, 0.72, 0, 1);
+  user-select: none;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Thin cream-on-blue rim around each card */
+.card::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+}
+
+.card img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* Placeholder */
+.card-ph {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px; padding: 28px;
+  position: relative;
+}
+
+.card-ph::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(0,21,106,0.28) 1px, transparent 1px);
+  background-size: 18px 18px; opacity: 0.35;
+}
+
+.ph-n {
+  font-size: clamp(40px, 7vw, 72px); font-weight: 900;
+  letter-spacing: -0.04em; color: rgba(0,21,106,0.22); line-height: 1;
+  position: relative;
+}
+
+.ph-lbl {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(0,21,106,0.55); position: relative;
+  text-align: center;
+}
+
+.card-pg-num {
+  position: absolute; bottom: 14px; right: 16px; z-index: 3;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.1em; color: rgba(0,21,106,0.4);
+}
+
+/* ── Position states ─────────────────────────────────────────── */
+/* Applied by JS via data-pos attribute */
+.card[data-pos="-3"], .card[data-pos="3"],
+.card[data-pos="-4"], .card[data-pos="4"] {
+  opacity: 0; pointer-events: none;
+}
+
+/* ── Prev / Next buttons ─────────────────────────────────────── */
+.carousel-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  color: var(--text); cursor: pointer; z-index: 20;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s, opacity 0.2s;
+}
+.carousel-btn:hover { background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.5); transform: translateY(-50%) scale(1.06); }
+.carousel-btn:disabled { opacity: 0.2; pointer-events: none; }
+
+.btn-prev { left: clamp(12px, 3vw, 40px); }
+.btn-next { right: clamp(12px, 3vw, 40px); }
+
+/* ── Footer ──────────────────────────────────────────────────── */
+.art-footer {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  margin-top: 32px;
+}
+
+.dots { display: flex; gap: 7px; align-items: center; }
+
+.dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.32); border: none; padding: 0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.dot.active { background: var(--accent); transform: scale(1.4); }
+
+.card-caption {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+  min-height: 16px;
+  transition: opacity 0.3s;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .art-header { padding: 0 24px; }
+  .carousel-scene { height: clamp(360px, 78vw, 480px); }
+  .card { width: clamp(200px, 68vw, 280px); height: clamp(280px, 92vw, 400px); }
+  .btn-prev { left: 8px; }
+  .btn-next { right: 8px; }
+}

@@ -1,0 +1,340 @@
+/* ── Override site.css viewport lock ────────────────────── */
+html, body {
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+
+/* ── Scroll zone ─────────────────────────────────────────── */
+.folders-scroll-zone {
+  /* 100vh pin + 400vh animation room = folders appear across ~4 screens of scroll */
+  height: 500vh;
+  position: relative;
+}
+
+/* ── Sticky pin ──────────────────────────────────────────── */
+.folders-pin {
+  position: sticky;
+  top: 0; height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  overflow: visible;
+}
+
+/* ── Top row: back link + heading + progress ─────────────── */
+.pin-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: min(1060px, 96vw);
+  gap: 24px;
+}
+
+.pin-top-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.work-back {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cream); text-decoration: none;
+  opacity: 0.4; width: fit-content;
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+  transition: opacity 0.2s;
+}
+.work-back:hover { opacity: 1; }
+
+.work-heading {
+  font-size: clamp(28px, 3.5vw, 52px);
+  font-weight: 900; letter-spacing: -0.03em;
+  color: var(--cream); line-height: 1;
+}
+.work-heading .accent { color: var(--gold); }
+
+/* ── Progress bar row ────────────────────────────────────── */
+.pin-header {
+  display: flex; align-items: center; gap: 16px;
+  width: min(480px, 45vw);
+}
+
+.pin-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); white-space: nowrap;
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+}
+
+.pin-progress-track {
+  flex: 1; height: 1px;
+  background: rgba(240,236,216,0.15);
+}
+
+.pin-progress-fill {
+  height: 100%; background: var(--gold); width: 0%;
+  transition: width 0.06s linear;
+  box-shadow: 0 0 10px rgba(212,160,23,0.7);
+}
+
+.pin-counter {
+  font-size: 10px; letter-spacing: 0.1em;
+  color: var(--gold); min-width: 24px; text-align: right;
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+}
+
+/* ── Stage ───────────────────────────────────────────────── */
+.folders-stage {
+  position: relative;
+  width: min(1060px, 96vw);
+  height: min(580px, 72vh);
+}
+
+/* ── All folders (base + content) ───────────────────────── */
+.folder, .folder-base {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  filter:
+    drop-shadow(0 6px 12px rgba(0,0,0,0.22))
+    drop-shadow(0 24px 56px rgba(0,0,0,0.36));
+}
+
+/* ── Tab ─────────────────────────────────────────────────── */
+.folder-tab {
+  position: absolute;
+  top: -28px; left: 36px;
+  width: 130px; height: 30px;
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+  /* Tab color set per-folder below */
+}
+
+/* ── Folder body ─────────────────────────────────────────── */
+.folder-body {
+  position: absolute;
+  inset: 0; z-index: 2;
+  border-radius: 4px 14px 4px 4px;
+  padding: 18px;
+  /* Subtle blueprint grid on folder surface */
+  background-image:
+    linear-gradient(rgba(0,0,0,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ── Paper insert ────────────────────────────────────────── */
+.folder-paper {
+  width: 100%; height: 100%;
+  border-radius: 3px;
+  padding: clamp(24px, 3.5vw, 44px) clamp(28px, 4vw, 52px);
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Dog-ear top-right */
+.folder-paper::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 36px 36px 0;
+  /* color set per-folder */
+  z-index: 2;
+}
+
+/* ── Entry number (decorative top-left) ──────────────────── */
+.entry-num {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  opacity: 0.35;
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+  margin-bottom: 16px;
+}
+
+/* ── Company name — huge ─────────────────────────────────── */
+.entry-company {
+  font-size: clamp(52px, 8vw, 112px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  align-self: center;
+  margin-bottom: 20px;
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.entry-divider {
+  height: 1px;
+  margin-bottom: 16px;
+  opacity: 0.2;
+}
+
+/* ── Role + description row ──────────────────────────────── */
+.entry-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.entry-role-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.entry-role {
+  font-size: clamp(11px, 1.1vw, 14px);
+  font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  opacity: 0.6;
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+}
+
+.entry-desc {
+  font-size: clamp(13px, 1.2vw, 16px);
+  line-height: 1.55;
+  opacity: 0.75;
+  max-width: 460px;
+}
+
+.entry-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  align-self: flex-end;
+  flex-shrink: 0;
+}
+
+.etag {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 2px;
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+}
+
+/* ══════════════════════════════════════════════════════════
+   PER-FOLDER COLOR THEMES
+   Each folder has its own palette so the stack looks varied
+   ══════════════════════════════════════════════════════════ */
+
+/* Base (empty placeholder) */
+.folder-base .folder-tab { background: #7A5810; }
+.folder-base .folder-body { background: #8B6518; }
+
+/* Folder 0 — deep navy, cream text */
+.folder[data-index="0"] .folder-tab {
+  background: #0A2060; color: rgba(240,236,216,0.5);
+}
+.folder[data-index="0"] .folder-body { background: #0D2878; }
+.folder[data-index="0"] .folder-paper {
+  background: #122FA8;
+}
+.folder[data-index="0"] .folder-paper::before {
+  border-color: transparent #0D2878 transparent transparent;
+}
+.folder[data-index="0"] .entry-num,
+.folder[data-index="0"] .entry-company,
+.folder[data-index="0"] .entry-role,
+.folder[data-index="0"] .entry-desc { color: #F0ECD8; }
+.folder[data-index="0"] .entry-divider { background: #F0ECD8; }
+.folder[data-index="0"] .etag {
+  background: rgba(240,236,216,0.12); color: #F0ECD8;
+}
+
+/* Folder 1 — classic manila */
+.folder[data-index="1"] .folder-tab {
+  background: #B87A18; color: rgba(50,30,5,0.5);
+}
+.folder[data-index="1"] .folder-body { background: #CC9220; }
+.folder[data-index="1"] .folder-paper { background: #F5E8C0; }
+.folder[data-index="1"] .folder-paper::before {
+  border-color: transparent #CC9220 transparent transparent;
+}
+.folder[data-index="1"] .entry-company { color: #1240A0; }
+.folder[data-index="1"] .entry-num,
+.folder[data-index="1"] .entry-role,
+.folder[data-index="1"] .entry-desc { color: #2A1A04; }
+.folder[data-index="1"] .entry-divider { background: #2A1A04; }
+.folder[data-index="1"] .etag {
+  background: rgba(18,64,160,0.1); color: #1240A0;
+}
+
+/* Folder 2 — warm cream / off-white */
+.folder[data-index="2"] .folder-tab {
+  background: #D4C8A8; color: rgba(40,30,10,0.45);
+}
+.folder[data-index="2"] .folder-body { background: #E8DFC0; }
+.folder[data-index="2"] .folder-paper { background: #FAF7EE; }
+.folder[data-index="2"] .folder-paper::before {
+  border-color: transparent #E8DFC0 transparent transparent;
+}
+.folder[data-index="2"] .entry-company { color: #1240A0; }
+.folder[data-index="2"] .entry-num,
+.folder[data-index="2"] .entry-role,
+.folder[data-index="2"] .entry-desc { color: #1A1205; }
+.folder[data-index="2"] .entry-divider { background: #1A1205; }
+.folder[data-index="2"] .etag {
+  background: rgba(18,64,160,0.08); color: #1240A0;
+}
+
+/* Folder 3 — bold gold, dark text on top */
+.folder[data-index="3"] .folder-tab {
+  background: #B89000; color: rgba(30,20,0,0.45);
+}
+.folder[data-index="3"] .folder-body { background: #D4A817; }
+.folder[data-index="3"] .folder-paper { background: #FFF8DC; }
+.folder[data-index="3"] .folder-paper::before {
+  border-color: transparent #D4A817 transparent transparent;
+}
+.folder[data-index="3"] .entry-company { color: #0A1E52; }
+.folder[data-index="3"] .entry-num,
+.folder[data-index="3"] .entry-role,
+.folder[data-index="3"] .entry-desc { color: #1A1205; }
+.folder[data-index="3"] .entry-divider { background: #1A1205; }
+.folder[data-index="3"] .etag {
+  background: rgba(10,30,82,0.1); color: #0A1E52;
+}
+
+/* ── Scroll cue ──────────────────────────────────────────── */
+.scroll-cue {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+  transition: opacity 0.4s ease;
+  animation: cueBob 2s ease-in-out infinite;
+}
+@keyframes cueBob {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+
+/* ── More section placeholder ─────────────────────────────── */
+.work-more {
+  height: 30vh;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+  font-family: "SF Mono","Fira Code","Consolas",monospace;
+}
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .work-header { padding: 32px 24px 40px; }
+  .entry-meta { flex-direction: column; align-items: flex-start; }
+  .entry-tags { align-self: flex-start; }
+}
